@@ -14,7 +14,7 @@ public class TreasurehuntController {
     @Value("${treasurehunt.max.attempts:3}")
     private Integer maxAttempts;
 
-    // use concurrent package to avoid cheating by simultaneous requests (with multiple user would be ConcurrentMap)
+    // use concurrent package to avoid cheating by simultaneous requests
     private AtomicInteger attemptsMade = new AtomicInteger(0);
 
     @Autowired
