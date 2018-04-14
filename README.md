@@ -1,20 +1,14 @@
 # Treasure Hunt
 
-## Run with Docker
+## Aims
 
-Build with:
+To explore kubernetes secrets with a treasure hunt game in minikube.
 
-`docker build . -t treasurehunt`
+## Pre-requisites
 
-Start with:
+Docker (https://docs.docker.com/install/) and minikube (https://kubernetes.io/docs/tasks/tools/install-minikube/) installed.
 
-`docker run -it -p 8080:8080 -e TREASURE_LOCATION_X=14 -e TREASURE_LOCATION_Y=17 treasurehunt`
-
-Play by going to `http://localhost:8080/hunt?x=<X>&y=<Y>` where X and Y are integers.
-
-See the treasure map and start again by going to `http://localhost:8080/reset`
-
-## In Minikube
+## How to Run In Minikube
 
 Start minikube:
  
@@ -33,7 +27,7 @@ First access from:
 
 `minikube service treasure-hunt-entrypoint`
 
-And play by going to `http://localhost:30080/hunt?x=<X>&y=<Y>` where X and Y are integers.
+And play by going to e.g. `http://localhost:30080/treasure?x=1&y=1`
 
 Delete with
  

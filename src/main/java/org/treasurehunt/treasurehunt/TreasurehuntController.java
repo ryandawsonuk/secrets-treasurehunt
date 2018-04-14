@@ -21,7 +21,7 @@ public class TreasurehuntController {
     private Treasure treasure;
 
     @GetMapping
-    public String hunt(@RequestParam(required=true) Integer x, @RequestParam(required=true) Integer y){
+    public String treasure(@RequestParam(required=true) Integer x, @RequestParam(required=true) Integer y){
 
         //hit treasure and not already dead
         if(x == treasure.getX() && y == treasure.getY() && attemptsMade.intValue() < maxAttempts ){
@@ -39,15 +39,16 @@ public class TreasurehuntController {
     }
 
 
+    @GetMapping(value = "")
+    public String home(){
+        return Graphics.map+"<br/><br/><br/>Play by going to e.g. /treasure?x=1&y=1 ";
+    }
+
     @GetMapping(value="reset")
     public String reset(){
         attemptsMade.set(0);
-        return Graphics.map;
+        return home();
     }
 
-    @GetMapping(value = "")
-    public String home(){
-        return reset();
-    }
 
 }
