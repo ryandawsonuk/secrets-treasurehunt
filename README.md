@@ -21,7 +21,7 @@ Build image for minikube - from this directory run
 
 Deploy with
  
-`kubectl create -f treasurehunt.yml`
+`kubectl create -f ./treasure-hunt`
 
 First access from: 
 
@@ -31,6 +31,6 @@ And play by going to e.g. `http://localhost:30080/treasure?x=1&y=1`
 
 Delete with
  
-`kubectl delete -f treasurehunt.yml`
+`kubectl delete -f ./treasure-hunt`
 
 And stop with `minikube stop`

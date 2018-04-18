@@ -1,19 +1,3 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: treasure-hunt-config
-  namespace: default
-data:
-  treasurehunt.max.attempts: "5"
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: treasure-hunt-secrets
-type: Opaque
-data:
-  treasure.location.x: MTQ=
-  treasure.location.y: MTc=
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -38,11 +22,6 @@ spec:
           env:
           - name: JAVA_OPTS
             value: -Xmx64m -Xms64m
-          - name: TREASUREHUNT_MAX_ATTEMPTS
-            valueFrom:
-              configMapKeyRef:
-                name: treasure-hunt-config
-                key: treasurehunt.max.attempts
           - name: TREASURE_LOCATION_X
             valueFrom:
               secretKeyRef:
@@ -53,17 +32,14 @@ spec:
               secretKeyRef:
                 name: treasure-hunt-secrets
                 key: treasure.location.y
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: treasure-hunt-entrypoint
-  namespace: default
-spec:
-  selector:
-    serviceType: treasure-hunt
-  ports:
-    - port: 8080
-      targetPort: 8080
-      nodePort: 30080
-  type: NodePort
+          volumeMounts:
+          - name: application-config
+            mountPath: "/config"
+            readOnly: true
+      volumes:
+      - name: application-config
+        configMap:
+          name: treasure-hunt-config
+          items:
+          - key: application.properties
+            path: application.properties
