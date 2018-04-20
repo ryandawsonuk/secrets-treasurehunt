@@ -20,6 +20,8 @@ public class TreasurehuntController {
     @Autowired
     private Treasure treasure;
 
+    private ClueGenerator clueGenerator = new ClueGenerator();
+
     @GetMapping
     public String treasure(@RequestParam(required=true) Integer x, @RequestParam(required=true) Integer y){
 
@@ -41,7 +43,12 @@ public class TreasurehuntController {
 
     @GetMapping(value = "")
     public String home(){
-        return Graphics.map+"<br/><br/><br/>Play by going to e.g. /treasure?x=1&y=1 ";
+        String homePage = Graphics.map+"<br/>";
+
+        homePage+="Your clue is:<br/><br/>"+clueGenerator.getClue(treasure.getX(),treasure.getY());
+
+        homePage+="<br/><br/><br/>Play by going to e.g. /treasure?x=1&y=1 ";
+        return homePage;
     }
 
     @GetMapping(value="reset")
@@ -50,5 +57,9 @@ public class TreasurehuntController {
         return home();
     }
 
+    @GetMapping(value="cheat")
+    public String cheat(){
+        return "("+treasure.getX()+","+treasure.getY()+")";
+    }
 
 }
