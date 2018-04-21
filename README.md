@@ -21,16 +21,16 @@ Build image for minikube - from this directory run
 
 Deploy with
  
-`kubectl create -f ./treasure-hunt`
+`kubectl create -f ./treasurehunt`
 
 First access from: 
 
-`minikube service treasure-hunt-entrypoint`
+`minikube service treasurehunt-entrypoint`
 
 And play by going to e.g. `http://localhost:30080/treasure?x=1&y=1`
 
 Delete with
  
-`kubectl delete -f ./treasure-hunt`
+`kubectl delete -f ./treasurehunt`
 
 And stop with `minikube stop`

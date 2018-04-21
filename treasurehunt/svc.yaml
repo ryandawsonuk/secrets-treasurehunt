@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: treasure-hunt-entrypoint
+  name: treasurehunt-entrypoint
   namespace: default
 spec:
   selector:
-    serviceType: treasure-hunt
+    serviceType: treasurehunt
   ports:
     - port: 8080
       targetPort: 8080

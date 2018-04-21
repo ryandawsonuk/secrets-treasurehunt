@@ -2,19 +2,19 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: treasure-hunt
+  name: treasurehunt
   labels:
-    serviceType: treasure-hunt
+    serviceType: treasurehunt
 spec:
   replicas: 1
   template:
     metadata:
-      name: treasure-hunt
+      name: treasurehunt
       labels:
-        serviceType: treasure-hunt
+        serviceType: treasurehunt
     spec:
       containers:
-        - name: treasure-hunt
+        - name: treasurehunt
           image: treasurehunt:latest
           imagePullPolicy: Never
           ports:
@@ -25,12 +25,12 @@ spec:
           - name: TREASURE_LOCATION_X
             valueFrom:
               secretKeyRef:
-                name: treasure-hunt-secrets
+                name: treasurehunt-secrets
                 key: treasure.location.x
           - name: TREASURE_LOCATION_Y
             valueFrom:
               secretKeyRef:
-                name: treasure-hunt-secrets
+                name: treasurehunt-secrets
                 key: treasure.location.y
           volumeMounts:
           - name: application-config
@@ -39,7 +39,7 @@ spec:
       volumes:
       - name: application-config
         configMap:
-          name: treasure-hunt-config
+          name: treasurehunt-config
           items:
           - key: application.properties
             path: application.properties

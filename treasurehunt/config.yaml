@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: treasure-hunt-config
+  name: treasurehunt-config
   namespace: default
 data:
   application.properties: |
