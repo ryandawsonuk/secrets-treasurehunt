@@ -34,6 +34,10 @@ public class Graphics {
             "      0                   1                   2                   3         <br/>"+
             "</pre>";
     // from http://ascii.co.uk/art/treasuremap
+    public static final int xMax = 3;
+    public static final int yMax = 4;
+    public static final int xScale = 20; //columsn spaced 20 chars apart
+    public static final int yScale = 4; //rows 4-spaced
 
     public static final String missed = "<pre>"+
             "                    _,-._<br/>" +

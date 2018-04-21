@@ -11,6 +11,7 @@ public class ClueGenerator {
     
     public ClueGenerator() {
 
+        //the map without scales shown
        mapRows.add(" |~ ~~ ~~~ ~ ~ ~~~ ~ _____.----------._ ~~~  ~~~~ ~~   ~~  ~~~~~ ~~~~|");
        mapRows.add(" |  _   ~~ ~~ __,---'_       \"         `. ~~~ _,--.  ~~~~ __,---.  ~~|");
        mapRows.add(" | | \\___ ~~ /      ( )   \"          \"   `-.,' (') \\~~ ~ (  / _\\ \\~~ |");
@@ -35,27 +36,31 @@ public class ClueGenerator {
        //we added rows from top down so now want to invert so that index zero is bottom
         Collections.reverse(mapRows);
     }
-            
 
 
     public String getClue(int treasureX, int treasureY){
-        //show a random 2 x 2 grid around the treasure location
+
+        //show a 2 x 2 grid around the treasure location
         //start the grid randomly left and below the treasure so it's not too predictable
         //but don't miss the treasure or go off grid
-        int leftX = Math.max(treasureX - ThreadLocalRandom.current().nextInt(0, 1),0);
-        int bottomY = Math.max(treasureY - ThreadLocalRandom.current().nextInt(0, 1),0);
-        while ((leftX+1)>3){
+
+        int leftX = Math.max(treasureX - ThreadLocalRandom.current().nextInt(0, 2),0);
+        int bottomY = Math.max(treasureY - ThreadLocalRandom.current().nextInt(0, 2),0);
+
+        while ( (leftX+1) > Graphics.xMax){
             leftX--;
         }
-        while ((bottomY+1)>4){
+        while ((bottomY+1)> Graphics.yMax){
             bottomY--;
         }
 
-        //on each row take the subString from position leftX*5 to (leftX+1)*5 as columns 20-spaced
-        //rows are 4-spaced so take them starting bottomY*4
+        //on each row take the subString from position leftX to (leftX+1) and factor for scale
+        //take rows starting bottomY*4
         List<String> clueRows = new ArrayList<>();
-        for( int i = (bottomY * 4) ; i < ((bottomY + 1) * 4); i++){
-            clueRows.add(mapRows.get(i).substring(leftX*20,(leftX+1)*20));
+
+        for( int i = (bottomY * Graphics.yScale) ; i < ((bottomY + 1) * Graphics.yScale); i++){
+
+            clueRows.add( mapRows.get(i).substring(leftX*Graphics.xScale, (leftX+1)*Graphics.xScale) );
         }
 
         //need to reverse back again so that we print top-down
