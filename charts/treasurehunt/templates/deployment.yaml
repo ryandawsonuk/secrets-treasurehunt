@@ -1,0 +1,67 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "treasurehunt.fullname" . }}
+  labels:
+    app: {{ template "treasurehunt.name" . }}
+    chart: {{ template "treasurehunt.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "treasurehunt.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "treasurehunt.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+          - name: JAVA_OPTS
+            value: -Xmx64m -Xms64m
+          - name: TREASURE_LOCATION_X
+            valueFrom:
+              secretKeyRef:
+                name: treasurehunt-secrets
+                key: treasure.location.x
+          - name: TREASURE_LOCATION_Y
+            valueFrom:
+              secretKeyRef:
+                name: treasurehunt-secrets
+                key: treasure.location.y
+          volumeMounts:
+          - name: application-config
+            mountPath: "/config"
+            readOnly: true
+      volumes:
+      - name: application-config
+        configMap:
+          name: treasurehunt-config
+          items:
+          - key: application.properties
+            path: application.properties
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
