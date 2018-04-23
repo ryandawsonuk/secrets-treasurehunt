@@ -34,3 +34,9 @@ Delete with
 `kubectl delete -f ./treasurehunt`
 
 And stop with `minikube stop`
+
+## Or in minikube with Helm
+
+As above but replace the `kubectl create` command with `helm install --name=pet-parrot ./charts/treasurehunt/`
+
+To remove use `helm del --purge pet-parrot`
