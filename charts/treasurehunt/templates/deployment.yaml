@@ -33,12 +33,12 @@ spec:
           - name: TREASURE_LOCATION_X
             valueFrom:
               secretKeyRef:
-                name: treasurehunt-secrets
+                name: {{ template "treasurehunt.fullname" . }}-treasurehunt-secrets
                 key: treasure.location.x
           - name: TREASURE_LOCATION_Y
             valueFrom:
               secretKeyRef:
-                name: treasurehunt-secrets
+                name: {{ template "treasurehunt.fullname" . }}-treasurehunt-secrets
                 key: treasure.location.y
           volumeMounts:
           - name: application-config
@@ -47,7 +47,7 @@ spec:
       volumes:
       - name: application-config
         configMap:
-          name: treasurehunt-config
+          name: {{ template "treasurehunt.fullname" . }}-treasurehunt-config
           items:
           - key: application.properties
             path: application.properties
