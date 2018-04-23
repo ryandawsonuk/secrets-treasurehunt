@@ -55,7 +55,7 @@ public class ClueGenerator {
         }
 
         //on each row take the subString from position leftX to (leftX+1) and factor for scale
-        //take rows starting bottomY*4
+        //take rows starting bottomY*yScale
         List<String> clueRows = new ArrayList<>();
 
         for( int i = (bottomY * Graphics.yScale) ; i < ((bottomY + 1) * Graphics.yScale); i++){
