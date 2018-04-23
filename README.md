@@ -37,6 +37,16 @@ And stop with `minikube stop`
 
 ## Or in minikube with Helm
 
-As above but replace the `kubectl create` command with `helm install --name=pet-parrot ./charts/treasurehunt/`
+As above but replace the `kubectl create` command with: 
+
+`helm install --name=pet-parrot ./charts/treasurehunt/`<br/>
+
+Or to set the treasure location then instead:
+
+ `helm install --name=pet-parrot  --set treasure.location.x=3,treasure.location.y=2 ./charts/treasurehunt/ `<br/>
+
+And access with:
+
+`minikube service pet-parrot-treasurehunt`
 
 To remove use `helm del --purge pet-parrot`

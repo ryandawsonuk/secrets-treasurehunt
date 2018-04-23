@@ -5,5 +5,4 @@ metadata:
   name: {{ template "treasurehunt.fullname" . }}-treasurehunt-config
   namespace: default
 data:
-  application.properties: |
-    treasurehunt.max.attempts=5
+{{ (.Files.Glob "files/application.properties").AsConfig | indent 2 }}
