@@ -46,13 +46,9 @@ public class ClueGenerator {
 
         int leftX = Math.max(treasureX - ThreadLocalRandom.current().nextInt(0, 2),0);
         int bottomY = Math.max(treasureY - ThreadLocalRandom.current().nextInt(0, 2),0);
+        leftX = Math.min(leftX, Graphics.xMax - 1);
+        bottomY = Math.min(bottomY, Graphics.yMax - 1);
 
-        while ( (leftX+1) > Graphics.xMax){
-            leftX--;
-        }
-        while ((bottomY+1)> Graphics.yMax){
-            bottomY--;
-        }
 
         //on each row take the subString from position leftX to (leftX+1) and factor for scale
         //take rows starting bottomY*yScale
